@@ -46,6 +46,16 @@
     
 }
 
+@media screen and (max-width: 65em) {
+    /* Temp fix for typo in parent theme */
+    h3 { font-size: 1.875rem; }
+}
+
+/* Fix weird spacing */
+h3, h4 {
+    margin-top: 2rem;
+}
+
 /* Ugly ugly trick but it works for now */
 #tippy-3 {
     padding-bottom: 1rem;
