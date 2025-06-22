@@ -1,0 +1,112 @@
+/* TODO: magic JS props / non-dark themes */
+:root {
+
+    --theme-page-heading-font-family: Courier, monospace;
+    --theme-page-text-font-family:    Courier, monospace;
+
+    --theme-page-bg:   #111;
+    --theme-page-text: #ccc;
+    --theme-page-text-size: 3vh;
+    --theme-page-h1-size: 10vh;
+
+    --theme-clickable-idle: #777;
+    --theme-clickable-base: #ccc;
+    --theme-clickable-hover: #fff;
+
+    --theme-spacing-one-unit: 1em;
+    --theme-spacing-half-unit: calc(0.5 * var(--theme-spacing-one-unit));
+
+}
+/* reset */
+* {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    font-family: var(--theme-page-text-font-family);
+    color: var(--theme-page-text);
+}
+
+p, li, table {
+    font-size: var(--theme-page-text-size);
+}
+
+body {
+    font-family: var(--theme-text-font-family);
+    padding: var(--theme-spacing-one-unit);
+    background: var(--theme-page-bg);
+
+    min-width: 100vw;
+    min-height: 100vh;
+    box-sizing: border-box;
+    padding: var(--theme-spacing-half-unit);
+}
+
+body > * {
+    width: 100%;
+}
+body > *:not(:first-child) {
+    margin-bottom: var(--theme-spacing-half-unit);
+}
+
+body > #header,
+body > #footer {
+    text-align: center;
+}
+
+/* Header HTML */
+#header > *,
+#header {
+    text-align: center;
+    display: inline-block;
+    vertical-align: middle;
+}
+#header > h1 {
+    /* Temp color until we work out whatever else we're doing for the theme */
+    color: #fff; /* var(--theme-clickable-base); */
+    font-size: var(--theme-page-h1-size);
+
+    /* Get the text to align with the logo (Divide by 2 for 2em as base factored into scaling) */
+    transform: translate(0, calc( var(--theme-page-h1-size) * 0.0125));
+}
+
+#header > img {
+    height: var(--theme-page-h1-size);
+    width: auto;
+    display: inline-block;
+}
+
+body > #footer {
+    /* Centered and small */
+    height: var(--theme-spacing-one-unit);
+    font-size: calc(0.75 * var(--theme-spacing-one-unit));
+    vertical-align: middle;
+
+}
+h1, h2, h3, h3, h5 {
+    font-family: var(--theme-page-heading-font-family);
+}
+
+body > #content > * { margin-top: var(--theme-spacing-one-unit); }
+
+a         { font-weight: bold;                   }
+a, a:link { color: var(--theme-clickable-base);  }
+a:visited { color: var(--theme-clickable-idle);  }
+a:hover   { color: var(--theme-clickable-hover); }
+
+ul, ol  { padding-left: calc(1.2 * var(--theme-spacing-one-unit)); }
+ul > li { list-style-type: disc; }
+ol > li { list-style-type: decimal; }
+
+
+/* Tables and table contents */
+table {
+    box-sizing: border-box;
+    margin: var(--theme-spacing-one-unit);
+}
+
+th {
+    text-align: center;
+    border-bottom: 1px solid var(--theme-clickable-idle);
+}
+
+td { padding: var(--theme-spacing-half-unit); }
