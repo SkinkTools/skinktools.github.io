@@ -85,7 +85,11 @@ body > #footer {
 h1, h2, h3, h3, h5 {
     font-family: var(--theme-page-heading-font-family);
 }
-
+h2 {
+    font-size: 2rem;
+}
+h3 { font-size: 1.5rem; }
+h4 { font-size: 1.2rem; }
 body > #content > * { margin-top: var(--theme-spacing-one-unit); }
 
 a         { font-weight: bold;                   }
