@@ -12,6 +12,12 @@
 .light {
     --ui-color: black;
 }
+
+.toc-container {
+    /* Broken on the theme (also see .navbar-container overrides) */
+    display: none !important;
+}
+
 .title-sidebar {
     max-width: inherit;
     height: var(--sidebar-logo-height-plus-margin);
@@ -50,7 +56,19 @@
     /* Temp fix for typo in parent theme */
     h3 { font-size: 1.875rem; }
 }
-
+@media screen and (min-width: 65em) {
+    .navbar-container {
+        right: 1rem !important;
+    }
+    .navbar-container {
+       max-width: none !important;
+    /*    min-width: 100% !important;
+        min-width: 100% !important; */
+    }
+    .main-content {
+        padding-right: 1em !important;
+    }
+}
 /* Fix weird spacing */
 h3, h4 {
     margin-top: 2rem;
