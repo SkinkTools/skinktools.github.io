@@ -37,7 +37,13 @@ function* _asGeneratorInner(iterable) {
  */
 export const EMPTY_GENERATOR = (function*() {})();
 
-
+function isIterable(iterable) {
+    return ! (
+            (iterable === undefined)
+            || (iterable === null)
+            || (typeof iterable[Symbol.iterator] !== 'function')
+    );
+}
 /**
  * @summary Return a generator over the passed iterable.
  *
@@ -54,7 +60,7 @@ export const EMPTY_GENERATOR = (function*() {})();
  * @returns {Generator&lt;T>} A generator over the iterable.
  */
 export function asGenerator(iterable) {
-    if(! (Symbol.iterator in iterable)) {
+    if(! isIterable(iterable)) {
         throw new TypeError(`No Symbol.iterator on ${JSON.stringify(iterable)}`);
     } else if (('length' in iterable) &amp;&amp; (iterable.length === 0)) {
         return EMPTY_GENERATOR;
@@ -174,7 +180,7 @@ function* _enumerateGenerator(iterable) {
  * @returns {Generator&lt;Array&lt;Number, T>>} A generator yielding `[index, value]` pairs.
  */
 export function enumerate(iterable) {
-    if(! (Symbol.iterator in iterable) ) throw new TypeError(
+    if(! isIterable(iterable) ) throw new TypeError(
         `${JSON.stringify(iterable)} lacks a Symbol.iterator value`
     )
     return _enumerateGenerator(iterable);
@@ -212,10 +218,9 @@ function* _chainGenerator(iterables) {
  * @returns {Generator&lt;T>} A generator which yields the passed items in order.
  */
 export function chain(...iterables) {
-    let i = 0;
-    for(const it of iterables) {
-        if(! (Symbol.iterator in it)) {
-            throw new TypeError(`${i}th value does not appear iterable ${JSON.stringify(it) }`);
+    for(const [i, iterable] of iterables.entries()) {
+        if(!isIterable(iterable)) {
+            throw new TypeError(`${i}th value does not appear iterable ${JSON.stringify(iterable) }`);
         }
     }
     return _chainGenerator(iterables);
@@ -274,7 +279,7 @@ function* _cycleGen(iterable) {
  * @returns {Generator&lt;T>} A generator repeating the passed values forever.
  */
 export function cycle(iterable) {
-    if(! (Symbol.iterator in iterable)) {
+    if(! isIterable(iterable)) {
         throw new TypeError(`cycle expects an iterable, but got ${JSON.stringify(iterable)}`);
     }
     return new _cycleGen(iterable);
@@ -316,7 +321,7 @@ function* _repeatGenerator(iterable, n) {
  * @returns {Generator&lt;T>} A generator repeating `iterable`'s values `n` times.
  */
 export function repeat(iterable, n) {
-    if(!(Symbol.iterator in iterable)) {
+    if(!isIterable(Symbol.iterator)) {
         throw new TypeError(`iterable is not an iterable`);
     }
     const problem = null;
@@ -400,9 +405,9 @@ export class MismatchedLengths extends RangeError {}
  * @returns {Generator&lt;Array>} A generator of items.
  */
 export function zip(...iterables) {
-    for(const [i, item] of iterables.entries()) {
-        if (! hasFunction(item, Symbol.iterator)) throw TypeError(
-            `argument ${i} does not appear to be iterable: ${item}`);
+    for(const [i, iterable] of iterables.entries()) {
+        if (! isIterable(iterable)) throw TypeError(
+            `argument ${i} does not appear to be iterable: ${iterable}`);
     }
     return _zipGenerator(iterables)
 }
@@ -423,7 +428,7 @@ export function zip(...iterables) {
  */
 export function zipStrict(...iterables) {
     for(const [i, item] of iterables.entries()) {
-        if (! hasFunction(item, Symbol.iterator)) throw TypeError(
+        if (!isIterable(item)) throw TypeError(
             `argument ${i} does not appear to be iterable: ${item}`);
     }
     return _zipGenerator(iterables, true)
@@ -533,7 +538,10 @@ export function product(...iterables) {
     // Convert the iterables do dial-like automodulo-ing helpers 
     const digits = [];
     for(const [i, iterable] of iterables.entries()) {
-        if (! (Symbol.iterator in iterable)) throw TypeError(
+        if ((iterable === undefined)
+            || (iterable === null)
+            || (typeof iterable[Symbol.iterator] !== 'function')
+        ) throw TypeError(
             `argument ${i} does not appear to be iterable: ${JSON.stringify(iterable)}`);
 
          const digit = new DigitLike(...iterable);

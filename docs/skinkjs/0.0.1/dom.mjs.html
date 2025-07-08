@@ -205,12 +205,12 @@ export function tag(name, contents = null) {
     const element = document.createElement(name);
     if(contents !== null) {
         if(typeof contents === 'string') {
-            element.appendChild(text(contents));
+            element.appendChild(document.createTextNode(contents));
         }
-        else if(('tagName' in contents) || Object.is(contents.constructor, Text)) {
+        else if(contents instanceof Element) {
             element.appendChild(contents);
         }
-        else if (Symbol.iterator in contents) {
+        else if (contents[Symbol.iterator] !== undefined) {
             appendAll(element, contents)
         } else {
             throw TypeError(`Unexpected contents value: ${JSON.stringify(contents)} is not a string, Text, or iterable of nodes.`);
