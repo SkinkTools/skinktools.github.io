@@ -1,0 +1,127 @@
+:root {
+    --sidebar-logo-size: 10vh;
+    --sidebar-logo-title-font-size: 1em;
+    --sidebar-logo-title-margin: 0.2em;
+    --sidebar-logo-height-plus-margin: calc(var(--sidebar-logo-size) + var(--sidebar-logo-title-margin) calc(var(var(--sidebar-logo-title-margin) * 2)));
+    --link-icon-html: url(data:image/svg+xml,%3Csvg%20%20xmlns=%22http://www.w3.org/2000/svg%22%20%20width=%2224%22%20%20height=%2224%22%20%20viewBox=%220%200%2024%2024%22%20%20fill=%22none%22%20%20stroke=%22currentColor%22%20%20stroke-width=%222%22%20%20stroke-linecap=%22round%22%20%20stroke-linejoin=%22round%22%20%20class=%22icon%20icon-tabler%20icons-tabler-outline%20icon-tabler-file-type-html%22%3E%3Cpath%20stroke=%22none%22%20d=%22M0%200h24v24H0z%22%20fill=%22none%22/%3E%3Cpath%20d=%22M14%203v4a1%201%200%200%200%201%201h4%22%20/%3E%3Cpath%20d=%22M5%2012v-7a2%202%200%200%201%202%20-2h7l5%205v4%22%20/%3E%3Cpath%20d=%22M2%2021v-6%22%20/%3E%3Cpath%20d=%22M5%2015v6%22%20/%3E%3Cpath%20d=%22M2%2018h3%22%20/%3E%3Cpath%20d=%22M20%2015v6h2%22%20/%3E%3Cpath%20d=%22M13%2021v-6l2%203l2%20-3v6%22%20/%3E%3Cpath%20d=%22M7.5%2015h3%22%20/%3E%3Cpath%20d=%22M9%2015v6%22%20/%3E%3C/svg%3E);
+    --link-icon-zip: url(data:image/svg+xml,%3Csvg%20%20xmlns=%22http://www.w3.org/2000/svg%22%20%20width=%2224%22%20%20height=%2224%22%20%20viewBox=%220%200%2024%2024%22%20%20fill=%22none%22%20%20stroke=%22currentColor%22%20%20stroke-width=%222%22%20%20stroke-linecap=%22round%22%20%20stroke-linejoin=%22round%22%20%20class=%22icon%20icon-tabler%20icons-tabler-outline%20icon-tabler-file-type-zip%22%3E%3Cpath%20stroke=%22none%22%20d=%22M0%200h24v24H0z%22%20fill=%22none%22/%3E%3Cpath%20d=%22M14%203v4a1%201%200%200%200%201%201h4%22%20/%3E%3Cpath%20d=%22M5%2012v-7a2%202%200%200%201%202%20-2h7l5%205v4%22%20/%3E%3Cpath%20d=%22M16%2018h1.5a1.5%201.5%200%200%200%200%20-3h-1.5v6%22%20/%3E%3Cpath%20d=%22M12%2015v6%22%20/%3E%3Cpath%20d=%22M5%2015h3l-3%206h3%22%20/%3E%3C/svg%3E);
+}
+.dark {
+    --ui-color: white;
+}
+.light {
+    --ui-color: black;
+}
+
+.toc-container {
+    /* Broken on the theme (also see .navbar-container overrides) */
+    display: none !important;
+}
+
+.title-sidebar {
+    max-width: inherit;
+    height: var(--sidebar-logo-height-plus-margin);
+    display: flex block;
+    flex-direction: column;
+    margin-bottom: var(--sidebar-logo-title-margin);
+}
+
+.title-sidebar > * {
+    flex: auto;
+    display: inline-block;
+    width: 100%;
+}
+
+.title-sidebar .img {
+    height: var(--sidebar-logo-size);
+    width: var(--sidebar-logo-size);
+    background-color: var(--ui-color);
+    mask-image: url('/static/skinktools_logo_transparent.png');
+    mask-position: center;
+    mask-size: contain;
+    margin: 0 calc(50% - calc(var(--sidebar-logo-size) / 2 ));
+    aspect-ratio: 1/1 !important;
+}
+
+.title-sidebar a {
+    text-align: center;
+    font-size: var(--sidebar-logo-title-font-size);
+    margin-top: var(--sidebar-logo-title-margin);
+    width: inherit;
+    color: var(--ui-color) !important;
+    
+}
+
+@media screen and (max-width: 65em) {
+    /* Temp fix for typo in parent theme */
+    h3 { font-size: 1.875rem; }
+}
+@media screen and (min-width: 65em) {
+    .navbar-container {
+        right: 1rem !important;
+    }
+    .navbar-container {
+       max-width: none !important;
+    /*    min-width: 100% !important;
+        min-width: 100% !important; */
+    }
+    .main-content {
+        padding-right: 1em !important;
+    }
+}
+/* Fix weird spacing */
+h3, h4 {
+    margin-top: 2rem;
+}
+
+/* Ugly ugly trick but it works for now */
+#tippy-3 {
+    padding-bottom: 1rem;
+}
+#tippy-3::after {
+
+    display: block;
+    position: absolute;
+    border-bottom-left-radius: .3125rem;
+    border-bottom-right-radius: .3125rem;
+    padding: .3125rem .5rem;
+    transform: translateY(-0.5rem);
+    font-size: 0.8rem;
+    content: "(Ctrl - /)";
+    background-color: rgba(0,0,0,0);
+}
+
+a[href$=".zip" i],
+a[href$="/template/"] {
+    padding-right: 1.5em;
+}
+
+a[href$=".zip" i]::after,
+a[href$="/template/" i]::after {
+    display: inline-block;
+    content: " ";
+    vertical-align: baseline;
+    position: absolute;
+    mask-clip: no-clip;
+    mask-repeat: no-repeat;
+    mask-position: top -0.125em right -0.25em;
+    background-color: #0bf;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 1.5em;
+    height: 1.5em;
+    transform: translate(0, calc(1em / 4));
+}
+a[href$=".zip" i]::after {
+    mask-image: var(--link-icon-zip);
+}
+
+a[href$="/template/"] {
+    padding-right: 1.6em;
+    margin-right: 0.2em;
+}
+a[href$="/template/"]::after {
+    mask-image: var(--link-icon-html);
+    mask-position: top -0.125em right -0.125em;
+    transform: translate(0.125em, calc(1em / 4));
+}
